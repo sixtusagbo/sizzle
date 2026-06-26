@@ -10,6 +10,17 @@ build/
 pubspec.lock
 example/pubspec.lock
 
+# Repo-only files, not useful inside the published archive
+.github/
+CONTRIBUTING.md
+
+# Example platform scaffolding: kept in the repo so the demo runs on a device,
+# but excluded from the package to keep the archive small.
+example/android/
+example/ios/
+example/.metadata
+example/.gitignore
+
 # Third-party copyrighted design reference (also in .git/info/exclude)
 1782258761032.jpeg
 1782258761117.jpeg
