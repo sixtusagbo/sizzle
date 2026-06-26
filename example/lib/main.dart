@@ -90,6 +90,16 @@ class HomePage extends StatelessWidget {
       ),
     ),
     Demo(
+      'Bottom position',
+      (c) => Sizzle.show(
+        c,
+        type: SizzleType.info,
+        title: 'Saved to downloads',
+        message: 'Tap to open the file.',
+        position: SizzlePosition.bottom,
+      ),
+    ),
+    Demo(
       'Tappable, via context.sizzle',
       (c) => c.sizzle(
         title: 'Update available',

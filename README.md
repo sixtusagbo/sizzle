@@ -53,6 +53,7 @@ Both `Sizzle.show` and `context.sizzle` take the same options:
 | `message`         | `String?`      | `null`                   | The gray line beneath the title.                         |
 | `type`            | `SizzleType`   | `SizzleType.success`     | One of `success`, `error`, `warning`, `info`. Sets the accent color and default icon. |
 | `duration`        | `Duration`     | `Duration(seconds: 4)`   | Time on screen. Use `Duration.zero` to keep until tapped.|
+| `position`        | `SizzlePosition`| `SizzlePosition.top`    | Anchors the toast to the top or bottom; sets the slide direction. |
 | `icon`            | `IconData?`    | the type's default       | Overrides the glyph in the icon chip.                    |
 | `onTap`           | `VoidCallback?`| `null`                   | Fires when the body is tapped, then dismisses the toast. |
 | `showCloseButton` | `bool`         | `true`                   | Toggles the trailing close button.                       |
@@ -79,6 +80,18 @@ Sizzle.show(
 );
 ```
 
+### Positioning
+
+Toasts slide in from the top by default. Anchor to the bottom instead, and the slide direction follows:
+
+```dart
+Sizzle.show(
+  context,
+  title: 'Saved to downloads',
+  position: SizzlePosition.bottom,
+);
+```
+
 A toast auto-dismisses after `duration`, or the user can tap the close button. Showing a new toast replaces the one on screen.
 
 ## Example
@@ -94,7 +107,7 @@ flutter run
 Milestone 1 ships one clean toast at a time. Planned next:
 
 - Stacking with a count badge when toasts pile up.
-- Custom positioning (top, bottom) and swipe-to-dismiss.
+- Swipe-to-dismiss.
 - Full theming of colors, shape, and motion.
 
 ## License

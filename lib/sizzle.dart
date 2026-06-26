@@ -5,4 +5,5 @@ library;
 
 export 'src/sizzle.dart';
 export 'src/sizzle_context.dart';
+export 'src/sizzle_position.dart';
 export 'src/sizzle_type.dart';

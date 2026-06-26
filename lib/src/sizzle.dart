@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'sizzle_position.dart';
 import 'sizzle_style.dart';
 import 'sizzle_type.dart';
 import 'widgets/sizzle_toast.dart';
@@ -25,8 +26,8 @@ class Sizzle {
 
   /// Shows a toast and returns immediately.
   ///
-  /// A new call replaces any toast already on screen (milestone 1 shows one at
-  /// a time; stacking arrives later).
+  /// A new call replaces any toast already on screen; stacking arrives in a
+  /// later release.
   ///
   /// - [title] is the bold headline (required).
   /// - [message] is the optional gray line beneath it.
@@ -34,6 +35,8 @@ class Sizzle {
   ///   [SizzleType.success].
   /// - [duration] is how long it stays before auto-dismissing. Pass
   ///   [Duration.zero] to keep it until tapped. Defaults to 4 seconds.
+  /// - [position] anchors the toast to the top or bottom of the screen and
+  ///   sets the slide direction. Defaults to [SizzlePosition.top].
   /// - [icon] overrides the type's default glyph.
   /// - [onTap] fires when the body is tapped; the toast then dismisses.
   /// - [showCloseButton] toggles the trailing close button.
@@ -43,6 +46,7 @@ class Sizzle {
     String? message,
     SizzleType type = SizzleType.success,
     Duration duration = const Duration(seconds: 4),
+    SizzlePosition position = SizzlePosition.top,
     IconData? icon,
     VoidCallback? onTap,
     bool showCloseButton = true,
@@ -51,17 +55,20 @@ class Sizzle {
     _removeCurrent();
 
     final style = SizzleStyle.of(type);
+    final isTop = position == SizzlePosition.top;
     late final OverlayEntry entry;
     entry = OverlayEntry(
       builder: (context) => Positioned(
-        top: 0,
+        top: isTop ? 0 : null,
+        bottom: isTop ? null : 0,
         left: 0,
         right: 0,
         child: SafeArea(
-          bottom: false,
-          minimum: const EdgeInsets.only(top: 8),
+          top: isTop,
+          bottom: !isTop,
+          minimum: EdgeInsets.only(top: isTop ? 8 : 0, bottom: isTop ? 0 : 8),
           child: Align(
-            alignment: Alignment.topCenter,
+            alignment: isTop ? Alignment.topCenter : Alignment.bottomCenter,
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 480),
               child: Padding(
@@ -72,6 +79,7 @@ class Sizzle {
                   message: message,
                   icon: icon ?? style.icon,
                   duration: duration,
+                  position: position,
                   showCloseButton: showCloseButton,
                   onTap: onTap,
                   onDismissed: () {

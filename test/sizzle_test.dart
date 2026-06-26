@@ -67,6 +67,30 @@ void main() {
     });
   }
 
+  // The toast anchors to its position: top toasts sit in the upper half of the
+  // screen, bottom toasts in the lower half.
+  const positionCases = <(SizzlePosition, bool)>[
+    (SizzlePosition.top, true),
+    (SizzlePosition.bottom, false),
+  ];
+  for (final (position, inUpperHalf) in positionCases) {
+    testWidgets('${position.name} position anchors the toast', (tester) async {
+      await _showVia(
+        tester,
+        (c) => Sizzle.show(
+          c,
+          title: 'Saved',
+          position: position,
+          duration: Duration.zero,
+        ),
+      );
+
+      final mid = tester.getSize(find.byType(MaterialApp)).height / 2;
+      final dy = tester.getCenter(find.text('Saved')).dy;
+      expect(inUpperHalf ? dy < mid : dy > mid, isTrue);
+    });
+  }
+
   testWidgets('a custom icon overrides the type default', (tester) async {
     await _showVia(
       tester,

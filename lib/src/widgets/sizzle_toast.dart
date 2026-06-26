@@ -2,14 +2,15 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../sizzle_position.dart';
 import '../sizzle_style.dart';
 import 'sizzle_card.dart';
 
 /// Wraps [SizzleCard] with entrance/exit motion and auto-dismiss timing.
 ///
-/// It slides and fades down from the top on show, holds for [duration], then
-/// reverses and calls [onDismissed] so the overlay entry can be removed. The
-/// close button and (optional) body tap dismiss it early.
+/// It slides and fades in from the toast's [position], holds for [duration],
+/// then reverses and calls [onDismissed] so the overlay entry can be removed.
+/// The close button and (optional) body tap dismiss it early.
 class SizzleToast extends StatefulWidget {
   const SizzleToast({
     super.key,
@@ -17,6 +18,7 @@ class SizzleToast extends StatefulWidget {
     required this.title,
     required this.icon,
     required this.duration,
+    required this.position,
     required this.showCloseButton,
     required this.onDismissed,
     this.message,
@@ -35,6 +37,9 @@ class SizzleToast extends StatefulWidget {
   /// How long the toast stays before auto-dismissing. [Duration.zero] disables
   /// the timer so it stays until dismissed by tap.
   final Duration duration;
+
+  /// Which edge the toast is anchored to; sets the slide-in direction.
+  final SizzlePosition position;
 
   /// Whether the close button is shown.
   final bool showCloseButton;
@@ -100,8 +105,11 @@ class _SizzleToastState extends State<SizzleToast>
 
   @override
   Widget build(BuildContext context) {
+    final beginOffset = widget.position == SizzlePosition.top
+        ? const Offset(0, -1)
+        : const Offset(0, 1);
     final slide = Tween<Offset>(
-      begin: const Offset(0, -1),
+      begin: beginOffset,
       end: Offset.zero,
     ).animate(_animation);
     return SlideTransition(
