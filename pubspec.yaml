@@ -1,7 +1,16 @@
 name: sizzle
-description: "A new Flutter package project."
+description: "Beautiful, animated, customizable toast notifications for Flutter. Drop-in success and error toasts with a premium look and a one-line API."
 version: 0.0.1
-homepage:
+# TODO(publish): set to the real GitHub repo before `flutter pub publish`.
+# repository: https://github.com/<user>/sizzle
+# issue_tracker: https://github.com/<user>/sizzle/issues
+
+topics:
+  - toast
+  - notification
+  - ui
+  - snackbar
+  - animation
 
 environment:
   sdk: ^3.12.2
