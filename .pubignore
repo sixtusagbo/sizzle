@@ -18,6 +18,7 @@ CONTRIBUTING.md
 # but excluded from the package to keep the archive small.
 example/android/
 example/ios/
+example/web/
 example/.metadata
 example/.gitignore
 

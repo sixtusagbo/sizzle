@@ -2,10 +2,12 @@
 
 Beautiful, animated, customizable toast notifications for Flutter. Drop-in success and error toasts with a premium look and a one-line API.
 
+[Live demo](https://sixtusagbo.github.io/sizzle/) · [pub.dev](https://pub.dev/packages/sizzle)
+
 A sizzle toast is a white, rounded card that slides and fades in from the top: a tinted circular icon chip, a bold title, an optional message, and a close button. It floats above your app through the root overlay, so no `Scaffold` is required at the call site.
 
-<!-- Add a screenshot or GIF here once captured from the example app: -->
-<!-- ![sizzle toasts](doc/preview.png) -->
+<!-- Record the example app, then drop the file at doc/sizzle.gif and uncomment: -->
+<!-- ![sizzle toasts](doc/sizzle.gif) -->
 
 ## Install
 
