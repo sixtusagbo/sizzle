@@ -1,6 +1,14 @@
-# Keep these out of the published pub.dev archive.
-# pub honors .gitignore/.pubignore but not .git/info/exclude, so the
-# locally-excluded reference images are listed again here.
+# pub ignores the .gitignore in any directory that also has a .pubignore, so
+# this root file must repeat the build/tooling excludes in addition to the
+# publish-only ones below. (pub does not honor .git/info/exclude at all.)
+
+# Build and tooling artifacts
+build/
+.dart_tool/
+.idea/
+*.iml
+pubspec.lock
+example/pubspec.lock
 
 # Third-party copyrighted design reference (also in .git/info/exclude)
 1782258761032.jpeg
