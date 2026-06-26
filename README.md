@@ -13,7 +13,7 @@ Add it to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  sizzle: ^0.0.1
+  sizzle: ^0.1.0
 ```
 
 Then import it:
