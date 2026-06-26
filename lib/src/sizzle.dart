@@ -40,6 +40,8 @@ class Sizzle {
   /// - [icon] overrides the type's default glyph.
   /// - [onTap] fires when the body is tapped; the toast then dismisses.
   /// - [showCloseButton] toggles the trailing close button.
+  /// - [swipeToDismiss] lets the user flick the toast away horizontally.
+  ///   Defaults to true.
   static void show(
     BuildContext context, {
     required String title,
@@ -50,6 +52,7 @@ class Sizzle {
     IconData? icon,
     VoidCallback? onTap,
     bool showCloseButton = true,
+    bool swipeToDismiss = true,
   }) {
     final overlay = Overlay.of(context, rootOverlay: true);
     _removeCurrent();
@@ -81,6 +84,7 @@ class Sizzle {
                   duration: duration,
                   position: position,
                   showCloseButton: showCloseButton,
+                  swipeToDismiss: swipeToDismiss,
                   onTap: onTap,
                   onDismissed: () {
                     if (identical(_current, entry)) {

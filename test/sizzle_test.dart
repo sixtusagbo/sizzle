@@ -146,6 +146,35 @@ void main() {
     expect(find.byIcon(Icons.close_rounded), findsNothing);
   });
 
+  testWidgets('swiping the toast horizontally dismisses it', (tester) async {
+    await _showVia(
+      tester,
+      (c) => Sizzle.show(c, title: 'Saved', duration: Duration.zero),
+    );
+
+    await tester.drag(find.text('Saved'), const Offset(500, 0));
+    await tester.pumpAndSettle();
+    expect(find.text('Saved'), findsNothing);
+  });
+
+  testWidgets('swipe does nothing when swipeToDismiss is false', (
+    tester,
+  ) async {
+    await _showVia(
+      tester,
+      (c) => Sizzle.show(
+        c,
+        title: 'Saved',
+        duration: Duration.zero,
+        swipeToDismiss: false,
+      ),
+    );
+
+    await tester.drag(find.text('Saved'), const Offset(500, 0));
+    await tester.pumpAndSettle();
+    expect(find.text('Saved'), findsOneWidget);
+  });
+
   testWidgets('tapping the body fires onTap and dismisses', (tester) async {
     var tapped = false;
     await _showVia(

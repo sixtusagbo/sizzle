@@ -57,6 +57,7 @@ Both `Sizzle.show` and `context.sizzle` take the same options:
 | `icon`            | `IconData?`    | the type's default       | Overrides the glyph in the icon chip.                    |
 | `onTap`           | `VoidCallback?`| `null`                   | Fires when the body is tapped, then dismisses the toast. |
 | `showCloseButton` | `bool`         | `true`                   | Toggles the trailing close button.                       |
+| `swipeToDismiss`  | `bool`         | `true`                   | Lets the user flick the toast away horizontally.         |
 
 ### Types
 
@@ -92,7 +93,7 @@ Sizzle.show(
 );
 ```
 
-A toast auto-dismisses after `duration`, or the user can tap the close button. Showing a new toast replaces the one on screen.
+A toast auto-dismisses after `duration`, or the user can tap the close button or swipe it away horizontally. Showing a new toast replaces the one on screen.
 
 ## Example
 

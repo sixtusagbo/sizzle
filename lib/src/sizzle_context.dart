@@ -25,6 +25,7 @@ extension SizzleX on BuildContext {
     IconData? icon,
     VoidCallback? onTap,
     bool showCloseButton = true,
+    bool swipeToDismiss = true,
   }) {
     Sizzle.show(
       this,
@@ -36,6 +37,7 @@ extension SizzleX on BuildContext {
       icon: icon,
       onTap: onTap,
       showCloseButton: showCloseButton,
+      swipeToDismiss: swipeToDismiss,
     );
   }
 }

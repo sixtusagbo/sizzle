@@ -10,7 +10,8 @@ import 'sizzle_card.dart';
 ///
 /// It slides and fades in from the toast's [position], holds for [duration],
 /// then reverses and calls [onDismissed] so the overlay entry can be removed.
-/// The close button and (optional) body tap dismiss it early.
+/// The close button, an optional body tap, and a horizontal swipe (when
+/// [swipeToDismiss] is set) dismiss it early.
 class SizzleToast extends StatefulWidget {
   const SizzleToast({
     super.key,
@@ -20,6 +21,7 @@ class SizzleToast extends StatefulWidget {
     required this.duration,
     required this.position,
     required this.showCloseButton,
+    required this.swipeToDismiss,
     required this.onDismissed,
     this.message,
     this.onTap,
@@ -43,6 +45,9 @@ class SizzleToast extends StatefulWidget {
 
   /// Whether the close button is shown.
   final bool showCloseButton;
+
+  /// Whether a horizontal swipe flings the toast away.
+  final bool swipeToDismiss;
 
   /// Called once the exit animation completes; removes the overlay entry.
   final VoidCallback onDismissed;
@@ -96,6 +101,14 @@ class _SizzleToastState extends State<SizzleToast>
     _dismiss();
   }
 
+  // The swipe already animates the card off-screen, so skip the reverse and
+  // just drop the overlay entry.
+  void _handleSwipe() {
+    _dismissing = true;
+    _timer?.cancel();
+    widget.onDismissed();
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
@@ -118,19 +131,32 @@ class _SizzleToastState extends State<SizzleToast>
         opacity: _animation,
         child: Material(
           color: Colors.transparent,
-          child: GestureDetector(
-            onTap: widget.onTap == null ? null : _handleTap,
-            child: SizzleCard(
-              style: widget.style,
-              title: widget.title,
-              message: widget.message,
-              icon: widget.icon,
-              showCloseButton: widget.showCloseButton,
-              onClose: _dismiss,
+          child: _wrapSwipe(
+            GestureDetector(
+              onTap: widget.onTap == null ? null : _handleTap,
+              child: SizzleCard(
+                style: widget.style,
+                title: widget.title,
+                message: widget.message,
+                icon: widget.icon,
+                showCloseButton: widget.showCloseButton,
+                onClose: _dismiss,
+              ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _wrapSwipe(Widget child) {
+    if (!widget.swipeToDismiss) return child;
+    return Dismissible(
+      key: const ValueKey('sizzle-toast'),
+      direction: DismissDirection.horizontal,
+      resizeDuration: null,
+      onDismissed: (_) => _handleSwipe(),
+      child: child,
     );
   }
 }

@@ -81,6 +81,17 @@ class HomePage extends StatelessWidget {
       ),
     ),
     Demo(
+      'Sticky (no swipe, no auto-dismiss)',
+      (c) => Sizzle.show(
+        c,
+        type: SizzleType.warning,
+        title: 'Action required',
+        message: 'Use the close button to dismiss this one.',
+        swipeToDismiss: false,
+        duration: Duration.zero,
+      ),
+    ),
+    Demo(
       'Title only, no close button',
       (c) => Sizzle.show(
         c,
