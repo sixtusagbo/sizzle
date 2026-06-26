@@ -30,3 +30,4 @@ image.png
 # Internal docs, not useful to package consumers
 HANDOFF.md
 CLAUDE.md
+GIF_STEPS.md
