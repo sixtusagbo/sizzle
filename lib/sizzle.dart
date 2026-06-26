@@ -1,5 +1,8 @@
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+/// Beautiful, animated, customizable toast notifications for Flutter.
+///
+/// Show one with [Sizzle.show] or the [SizzleX.sizzle] context extension.
+library;
+
+export 'src/sizzle.dart';
+export 'src/sizzle_context.dart';
+export 'src/sizzle_type.dart';
