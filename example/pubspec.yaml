@@ -1,0 +1,19 @@
+name: sizzle_example
+description: "Demo app showing every sizzle toast variant."
+publish_to: none
+version: 1.0.0
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sizzle:
+    path: ../
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
