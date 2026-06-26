@@ -44,6 +44,24 @@ class HomePage extends StatelessWidget {
       ),
     ),
     Demo(
+      'Warning preset',
+      (c) => Sizzle.show(
+        c,
+        type: SizzleType.warning,
+        title: 'Storage almost full',
+        message: 'Free up space to keep syncing.',
+      ),
+    ),
+    Demo(
+      'Info preset',
+      (c) => Sizzle.show(
+        c,
+        type: SizzleType.info,
+        title: 'Update available',
+        message: 'Version 2.1 is ready to install.',
+      ),
+    ),
+    Demo(
       'Connection restored (custom icon)',
       (c) => Sizzle.show(
         c,

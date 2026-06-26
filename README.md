@@ -51,11 +51,22 @@ Both `Sizzle.show` and `context.sizzle` take the same options:
 | ----------------- | -------------- | ------------------------ | -------------------------------------------------------- |
 | `title`           | `String`       | required                 | The bold headline.                                       |
 | `message`         | `String?`      | `null`                   | The gray line beneath the title.                         |
-| `type`            | `SizzleType`   | `SizzleType.success`     | Selects the accent color and default icon.               |
+| `type`            | `SizzleType`   | `SizzleType.success`     | One of `success`, `error`, `warning`, `info`. Sets the accent color and default icon. |
 | `duration`        | `Duration`     | `Duration(seconds: 4)`   | Time on screen. Use `Duration.zero` to keep until tapped.|
 | `icon`            | `IconData?`    | the type's default       | Overrides the glyph in the icon chip.                    |
 | `onTap`           | `VoidCallback?`| `null`                   | Fires when the body is tapped, then dismisses the toast. |
 | `showCloseButton` | `bool`         | `true`                   | Toggles the trailing close button.                       |
+
+### Types
+
+Four presets, each with its own accent color and default glyph:
+
+| Type                   | Accent | Default icon          |
+| ---------------------- | ------ | --------------------- |
+| `SizzleType.success`   | Green  | check                 |
+| `SizzleType.error`     | Red    | close                 |
+| `SizzleType.warning`   | Amber  | exclamation           |
+| `SizzleType.info`      | Blue   | info                  |
 
 Override the icon to match your context:
 
@@ -83,7 +94,6 @@ flutter run
 Milestone 1 ships one clean toast at a time. Planned next:
 
 - Stacking with a count badge when toasts pile up.
-- Warning and info presets.
 - Custom positioning (top, bottom) and swipe-to-dismiss.
 - Full theming of colors, shape, and motion.
 

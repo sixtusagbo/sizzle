@@ -27,10 +27,6 @@ Future<void> _showVia(
   await tester.pump(const Duration(milliseconds: 400));
 }
 
-Icon _iconNamed(WidgetTester tester, IconData glyph) {
-  return tester.widget<Icon>(find.byIcon(glyph));
-}
-
 void main() {
   testWidgets('shows the title and message', (tester) async {
     await _showVia(
@@ -47,35 +43,29 @@ void main() {
     expect(find.text('You are back online.'), findsOneWidget);
   });
 
-  testWidgets('success renders the green check icon', (tester) async {
-    await _showVia(
-      tester,
-      (c) => Sizzle.show(c, title: 'Saved', duration: Duration.zero),
-    );
+  // Each type renders its glyph in its accent color. Matching by `contains`
+  // covers the error case, where the chip glyph and the close button share
+  // close_rounded.
+  const typeCases = <(SizzleType, IconData, Color)>[
+    (SizzleType.success, Icons.check_rounded, Color(0xFF1FA463)),
+    (SizzleType.error, Icons.close_rounded, Color(0xFFE5484D)),
+    (SizzleType.warning, Icons.priority_high_rounded, Color(0xFFE8910A)),
+    (SizzleType.info, Icons.info_outline_rounded, Color(0xFF2D7FF9)),
+  ];
+  for (final (type, glyph, accent) in typeCases) {
+    testWidgets('${type.name} renders its accent glyph', (tester) async {
+      await _showVia(
+        tester,
+        (c) => Sizzle.show(c, type: type, title: 'X', duration: Duration.zero),
+      );
 
-    final icon = _iconNamed(tester, Icons.check_rounded);
-    expect(icon.color, const Color(0xFF1FA463));
-  });
-
-  testWidgets('error renders the red close icon', (tester) async {
-    await _showVia(
-      tester,
-      (c) => Sizzle.show(
-        c,
-        type: SizzleType.error,
-        title: 'No Internet Connection',
-        duration: Duration.zero,
-      ),
-    );
-
-    // The chip icon and the close button both use close_rounded for an error
-    // toast, so match by the accent color the chip icon carries.
-    final colors = tester
-        .widgetList<Icon>(find.byIcon(Icons.close_rounded))
-        .map((i) => i.color)
-        .toList();
-    expect(colors, contains(const Color(0xFFE5484D)));
-  });
+      final colors = tester
+          .widgetList<Icon>(find.byIcon(glyph))
+          .map((i) => i.color)
+          .toList();
+      expect(colors, contains(accent));
+    });
+  }
 
   testWidgets('a custom icon overrides the type default', (tester) async {
     await _showVia(

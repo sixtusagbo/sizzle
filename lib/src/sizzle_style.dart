@@ -36,6 +36,18 @@ class SizzleStyle {
     icon: Icons.close_rounded,
   );
 
+  static const SizzleStyle _warning = SizzleStyle(
+    accentColor: Color(0xFFE8910A),
+    tintColor: Color(0xFFFDF1E0),
+    icon: Icons.priority_high_rounded,
+  );
+
+  static const SizzleStyle _info = SizzleStyle(
+    accentColor: Color(0xFF2D7FF9),
+    tintColor: Color(0xFFE8F1FE),
+    icon: Icons.info_outline_rounded,
+  );
+
   /// Resolves the style for [type].
   static SizzleStyle of(SizzleType type) {
     switch (type) {
@@ -43,6 +55,10 @@ class SizzleStyle {
         return _success;
       case SizzleType.error:
         return _error;
+      case SizzleType.warning:
+        return _warning;
+      case SizzleType.info:
+        return _info;
     }
   }
 }
