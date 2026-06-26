@@ -1,0 +1,12 @@
+# Keep these out of the published pub.dev archive.
+# pub honors .gitignore/.pubignore but not .git/info/exclude, so the
+# locally-excluded reference images are listed again here.
+
+# Third-party copyrighted design reference (also in .git/info/exclude)
+1782258761032.jpeg
+1782258761117.jpeg
+image.png
+
+# Internal docs, not useful to package consumers
+HANDOFF.md
+CLAUDE.md

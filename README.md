@@ -1,39 +1,92 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# sizzle
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+Beautiful, animated, customizable toast notifications for Flutter. Drop-in success and error toasts with a premium look and a one-line API.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+A sizzle toast is a white, rounded card that slides and fades in from the top: a tinted circular icon chip, a bold title, an optional message, and a close button. It floats above your app through the root overlay, so no `Scaffold` is required at the call site.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+<!-- Add a screenshot or GIF here once captured from the example app: -->
+<!-- ![sizzle toasts](doc/preview.png) -->
 
-## Features
+## Install
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Add it to your `pubspec.yaml`:
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
-
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  sizzle: ^0.0.1
 ```
 
-## Additional information
+Then import it:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:sizzle/sizzle.dart';
+```
+
+## Quick start
+
+```dart
+Sizzle.show(
+  context,
+  type: SizzleType.success,
+  title: 'Connection Restored',
+  message: 'You are back online.',
+);
+```
+
+Prefer an extension on `BuildContext`? Same result:
+
+```dart
+context.sizzle(
+  type: SizzleType.error,
+  title: 'No Internet Connection',
+  message: 'Please check your connection and try again.',
+);
+```
+
+## Customization
+
+Both `Sizzle.show` and `context.sizzle` take the same options:
+
+| Parameter         | Type           | Default                  | Description                                              |
+| ----------------- | -------------- | ------------------------ | -------------------------------------------------------- |
+| `title`           | `String`       | required                 | The bold headline.                                       |
+| `message`         | `String?`      | `null`                   | The gray line beneath the title.                         |
+| `type`            | `SizzleType`   | `SizzleType.success`     | Selects the accent color and default icon.               |
+| `duration`        | `Duration`     | `Duration(seconds: 4)`   | Time on screen. Use `Duration.zero` to keep until tapped.|
+| `icon`            | `IconData?`    | the type's default       | Overrides the glyph in the icon chip.                    |
+| `onTap`           | `VoidCallback?`| `null`                   | Fires when the body is tapped, then dismisses the toast. |
+| `showCloseButton` | `bool`         | `true`                   | Toggles the trailing close button.                       |
+
+Override the icon to match your context:
+
+```dart
+Sizzle.show(
+  context,
+  title: 'Connection Restored',
+  message: 'You are back online.',
+  icon: Icons.wifi_tethering_rounded,
+);
+```
+
+A toast auto-dismisses after `duration`, or the user can tap the close button. Showing a new toast replaces the one on screen.
+
+## Example
+
+The `example/` app shows every variant. From its directory:
+
+```bash
+flutter run
+```
+
+## Roadmap
+
+Milestone 1 ships one clean toast at a time. Planned next:
+
+- Stacking with a count badge when toasts pile up.
+- Warning and info presets.
+- Custom positioning (top, bottom) and swipe-to-dismiss.
+- Full theming of colors, shape, and motion.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

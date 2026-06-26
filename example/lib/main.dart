@@ -31,11 +31,8 @@ class HomePage extends StatelessWidget {
   List<Demo> get _demos => [
     Demo(
       'Success preset',
-      (c) => Sizzle.show(
-        c,
-        title: 'Saved',
-        message: 'Your changes were saved.',
-      ),
+      (c) =>
+          Sizzle.show(c, title: 'Saved', message: 'Your changes were saved.'),
     ),
     Demo(
       'Error preset',
